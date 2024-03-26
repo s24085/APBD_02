@@ -3,10 +3,10 @@ using System.Linq.Expressions;
 
 namespace Z_02;
 
-public class LiquidContainer : ContainerGeneral
+public class LiquidContainer : ContainerGeneral,IHazardNotifier
 {
-    double NewWeight;
-    bool isDangerous;
+    
+   public bool isDangerous { get; private set; }
 
 
 if( isDangerous)

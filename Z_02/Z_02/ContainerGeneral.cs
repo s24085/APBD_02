@@ -1,30 +1,24 @@
 namespace Z_02;
 
-public class ContainerGeneral
+abstract class ContainerGeneral
 {
-    private double weight;
-    private double height;
-    private double netWeight;
-    private double depth;
-    private SerialNumber serialNumber;
-    private double maxCapacity;
-    
+    public double weight { get; protected set;}
+    public double height{ get; private set;}
+    public double netWeight{ get; private set;}
+    public double depth{ get; private set;}
+    public SerialNumber serialNumber{ get; private set;}
+    public double maxCapacity{ get; private set;}
 
-    void ClearContainer(ContainerGeneral container)
+    protected ContainerGeneral(double weight, double height, double netWeight, double depth, SerialNumber serialNumber, double maxCapacity)
     {
-        this.weight = weight - weight;
+        this.weight = weight;
+        this.height = height;
+        this.netWeight = netWeight;
+        this.depth = depth;
+        this.serialNumber = serialNumber;
+        this.maxCapacity = maxCapacity;
     }
 
-    double LoadContainer(ContainerGeneral container)
-    {
-        if (container.maxCapacity < weight)
-            throw new Exception("Overfill Exception");
-        double NewWeight= container.maxCapacity - container.weight;
-        return weight;
-    }
-
-    public double getWeight()
-    {
-        return weight;
-    }
+    public abstract void LoadContainer(double weight);
+    public abstract void ClearContainer();
 }
