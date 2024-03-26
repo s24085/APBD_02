@@ -1,6 +1,6 @@
 namespace Z_02;
 
-public class Container
+public class ContainerGeneral
 {
     private double weight;
     private double height;
@@ -10,16 +10,21 @@ public class Container
     private double maxCapacity;
     
 
-    private void ClearContainer(Container container)
+    void ClearContainer(ContainerGeneral container)
     {
         this.weight = weight - weight;
     }
 
-    private double LoadContainer(Container container)
+    double LoadContainer(ContainerGeneral container)
     {
         if (container.maxCapacity < weight)
             throw new Exception("Overfill Exception");
         double NewWeight= container.maxCapacity - container.weight;
+        return weight;
+    }
+
+    public double getWeight()
+    {
         return weight;
     }
 }

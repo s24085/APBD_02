@@ -7,7 +7,7 @@ public class SerialNumber
     private string conatinerType;
     private int randomNumber;
 
-    public string SetSerialNumber(Container container)
+    public string SetSerialNumber(ContainerGeneral container)
     {
         this.conatinerType = container.ToString();
         randomNumber = r.Next(1, 51);
