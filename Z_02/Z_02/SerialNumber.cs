@@ -2,15 +2,20 @@ namespace Z_02;
 
 public class SerialNumber
 {
-    private string constans = "KON";
-    private Random r = new Random();
-    private string conatinerType;
-    private int randomNumber;
+    private static List<string> usedSerialNumbers = new List<string>();
+    private static readonly Random random = new Random();
+    private const string prefix = "KON";
 
-    public string SetSerialNumber(ContainerGeneral container)
+    public static string GenerateSerialNumber(string containerType)
     {
-        this.conatinerType = container.ToString();
-        randomNumber = r.Next(1, 51);
-        return constans + conatinerType + randomNumber;
+        string serialNumber;
+        do
+        {
+            int randomNumber = random.Next(1, 1000); 
+            serialNumber = $"{prefix}-{containerType}-{randomNumber}";
+        } while (usedSerialNumbers.Contains(serialNumber));
+
+        usedSerialNumbers.Add(serialNumber);
+        return serialNumber;
     }
 }
