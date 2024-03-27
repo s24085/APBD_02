@@ -71,7 +71,7 @@ public static void LoadContainerOntoShip()
         }
     }
     
-    public ContainerGeneral FindContainerBySerialNumber(string serialNumber)
+    public static ContainerGeneral FindContainerBySerialNumber(string serialNumber)
     {
         return containers.FirstOrDefault(c => c.serialNumber == serialNumber);
     }

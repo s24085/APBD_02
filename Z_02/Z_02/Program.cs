@@ -6,6 +6,8 @@ class Program
 {
     static List<ShipContainer> ships = new List<ShipContainer>();
     static List<ContainerGeneral> containers = new List<ContainerGeneral>();
+    ShipManagement shipManagement = new ShipManagement();
+    bool exit = false;
 
     static void Main(string[] args)
     {
@@ -17,9 +19,10 @@ class Program
             Console.WriteLine("2. Dodaj kontener chłodniczy");
             Console.WriteLine("3. Dodaj kontener na płyny");
             Console.WriteLine("4. Dodaj kontener na gaz");
-            Console.WriteLine("5. Załaduj kontener na statek");
-            Console.WriteLine("6. Wyświetl statki i kontenery");
-            Console.WriteLine("7. Wyjście");
+            Console.WriteLine("5. Znajdź kontener po numerze seryjnym");
+            Console.WriteLine("6. Załaduj kontener na statek");
+            Console.WriteLine("7. Wyświetl statki i kontenery");
+            Console.WriteLine("8. Wyjście");
 
             Console.Write("\nWybierz opcję: ");
             string option = Console.ReadLine();
@@ -39,12 +42,15 @@ class Program
                     ContainerFactory.CreateGasContainer();
                     break;
                 case "5":
-                    ShipManagement.LoadContainerOntoShip();
+                    ShipManagement.FindContainerBySerialNumber(null);
                     break;
                 case "6":
-                    ShipManagement.DisplayShipsAndContainers();
+                    ShipManagement.LoadContainerOntoShip();
                     break;
                 case "7":
+                    ShipManagement.DisplayShipsAndContainers();
+                    break;
+                case "8":
                     isRunning = false;
                     break;
                 default:
