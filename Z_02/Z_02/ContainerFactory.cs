@@ -33,10 +33,9 @@ namespace Z_02
                     break;
             }
         }
-    
 
 
-    private static ColdContainer CreateColdContainer()
+        private static ColdContainer CreateColdContainer()
         {
             var productNames = new List<string>
             {
@@ -52,7 +51,7 @@ namespace Z_02
                 "Jajka",
                 "Inne"
             };
-            
+
             Console.WriteLine("Tworzenie kontenera chłodniczego:");
             Console.Write("Podaj numer produktu:" +
                           "\n1.Banany" +
@@ -60,16 +59,16 @@ namespace Z_02
                           "\n3.Ryby" +
                           "\n4.Mięso" +
                           "\n5.Lody" +
-                          "\n6.Mrożona pizza"+
+                          "\n6.Mrożona pizza" +
                           "\n7.Ser" +
                           "\n8.Kiełbasa" +
                           "\n9.Masło" +
                           "\n10.Jajka" +
-                          "\n11.Inne"+
+                          "\n11.Inne" +
                           "\nTwój wybór: ");
             int choice = int.Parse(Console.ReadLine());
             string selectedProductName;
-            double temperature=0;
+            double temperature = 0;
             if (choice == 11)
             {
                 Console.Write("Podaj nazwę produktu: ");
@@ -77,7 +76,8 @@ namespace Z_02
                 Console.Write("Podaj temperaturę kontenera: ");
                 temperature = double.Parse(Console.ReadLine());
             }
-            if (choice >= 1 && choice <= productNames.Count-1)
+
+            if (choice >= 1 && choice <= productNames.Count - 1)
             {
                 selectedProductName = productNames[choice - 1];
                 if (ColdContainer.productTypeMap.TryGetValue(selectedProductName, out temperature))
@@ -93,10 +93,12 @@ namespace Z_02
             {
                 Console.WriteLine("Nieprawidłowy wybór.");
             }
+
             double weight = 33000, height = 300, netWeight = 2200, depth = 2000;
             double maxCapacity = 5000;
 
-            return new ColdContainer(weight, height, netWeight, depth, maxCapacity, productNames[choice - 1], temperature);
+            return new ColdContainer(weight, height, netWeight, depth, maxCapacity, productNames[choice - 1],
+                temperature);
         }
 
         private static LiquidContainer CreateLiquidContainer()
@@ -107,7 +109,7 @@ namespace Z_02
             double weight = 1200, height = 250, netWeight = 150, depth = 250;
             double maxCapacity = 6000;
 
-            return new LiquidContainer(weight, height, netWeight, depth, maxCapacity,isDangerous);
+            return new LiquidContainer(weight, height, netWeight, depth, maxCapacity, isDangerous);
         }
 
         private static GasContainer CreateGasContainer()
@@ -122,4 +124,3 @@ namespace Z_02
         }
     }
 }
-

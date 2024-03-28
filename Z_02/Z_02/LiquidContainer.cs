@@ -20,5 +20,3 @@ public class LiquidContainer(
         Console.WriteLine($"Hazard notification for {serialNumber}: {message}");
     }
 }
-
-

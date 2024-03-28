@@ -8,20 +8,21 @@ class Program
 
     static void Main(string[] args)
     {
-        ColdContainer coldContainer1 = new ColdContainer(1000, 250, 200, 500, 12000,"Banany", 13.3);
-        ColdContainer coldContainer2 = new ColdContainer(1000, 250, 200, 500, 24000,"Mięso", -15);
-        
-        LiquidContainer liquidContainer1 = new LiquidContainer(1500, 300, 250, 600, 33000,true);
-        LiquidContainer liquidContainer2 = new LiquidContainer(1500, 300, 250, 600, 30000,false);
-        
-        GasContainer gasContainer1 = new GasContainer(2000, 350, 300, 700, 18000,100);
-        GasContainer gasContainer2 = new GasContainer(2000, 350, 300, 700, 24000,150);
-        
-        ContainerGeneral.allContainers.AddRange(new ContainerGeneral[] { coldContainer1, coldContainer2, liquidContainer1, liquidContainer2, gasContainer1, gasContainer2 });
-        
-        ContainerShip ship1 = new ContainerShip(22,240000, 300000,"statek1");
-        ContainerShip ship2 = new ContainerShip( 25, 150000,22000, "statek2");
-        
+        ColdContainer coldContainer1 = new ColdContainer(1000, 250, 200, 500, 12000, "Banany", 13.3);
+        ColdContainer coldContainer2 = new ColdContainer(1000, 250, 200, 500, 24000, "Mięso", -15);
+
+        LiquidContainer liquidContainer1 = new LiquidContainer(1500, 300, 250, 600, 33000, true);
+        LiquidContainer liquidContainer2 = new LiquidContainer(1500, 300, 250, 600, 30000, false);
+
+        GasContainer gasContainer1 = new GasContainer(2000, 350, 300, 700, 18000, 100);
+        GasContainer gasContainer2 = new GasContainer(2000, 350, 300, 700, 24000, 150);
+
+        ContainerGeneral.allContainers.AddRange(new ContainerGeneral[]
+            { coldContainer1, coldContainer2, liquidContainer1, liquidContainer2, gasContainer1, gasContainer2 });
+
+        ContainerShip ship1 = new ContainerShip(22, 240000, 300000, "statek1");
+        ContainerShip ship2 = new ContainerShip(25, 150000, 22000, "statek2");
+
         ship1.AddContainerOntoShip(coldContainer1);
         ship1.AddContainerOntoShip(liquidContainer1);
         ship2.AddContainerOntoShip(gasContainer1);

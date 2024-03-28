@@ -32,18 +32,20 @@ public abstract class ContainerGeneral
         }
 
         this.currentLoad += weight;
-
     }
-    public  void ClearContainer()
+
+    public void ClearContainer()
     {
         this.currentLoad = 0;
     }
+
     public void UnloadContainer(double weight)
     {
         if (weight > this.currentLoad)
         {
             throw new InvalidOperationException("Próba rozładowania więcej niż aktualne obciążenie.");
         }
+
         this.currentLoad -= weight;
     }
 }

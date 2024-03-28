@@ -4,7 +4,6 @@ public class ContainerManagement
 {
     public static void LoadCargoToSelectedContainer()
     {
-
         Console.Write("Podaj numer seryjny kontenera: ");
         string serialNumber = Console.ReadLine();
 
@@ -118,10 +117,9 @@ public class ContainerManagement
 
     public static void DisplayContainerDetails(ContainerGeneral container)
     {
-        
         string containerType = container.GetType().Name;
 
-        
+
         Console.WriteLine($"Typ kontenera: {containerType}");
         Console.WriteLine($"Numer seryjny: {container.serialNumber}");
         Console.WriteLine($"Obecne obciążenie: {container.currentLoad} kg");
@@ -143,10 +141,10 @@ public class ContainerManagement
         {
             Console.WriteLine("Nie znaleziono kontenera o podanym numerze seryjnym.");
         }
-
     }
+
     public List<ContainerGeneral> FindContainersByType(Type containerType)
-{
-    return ContainerGeneral.allContainers.Where(c => c.GetType() == containerType).ToList();
-}
+    {
+        return ContainerGeneral.allContainers.Where(c => c.GetType() == containerType).ToList();
+    }
 }

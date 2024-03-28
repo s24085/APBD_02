@@ -11,7 +11,7 @@ public class SerialNumber
         string serialNumber;
         do
         {
-            var randomNumber = random.Next(1, 1000); 
+            var randomNumber = random.Next(1, 1000);
             serialNumber = $"{prefix}-{containerType}-{randomNumber}";
         } while (usedSerialNumbers.Contains(serialNumber));
 
