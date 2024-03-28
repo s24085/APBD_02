@@ -3,7 +3,7 @@ namespace Z_02;
 public class ColdContainer : ContainerGeneral, IHazardNotifier
 {
     public string productType { get; private set; }
-    public double containerTemp { get; private set; }
+    private double containerTemp { get;  set; }
     public static Dictionary<string, double> productTypeMap= new Dictionary<string, double>
     {
         { "Banany", 13.3 },
@@ -27,9 +27,6 @@ public class ColdContainer : ContainerGeneral, IHazardNotifier
         
         ValidateProductTypeAndTemperature();
     }
-
-   
-
     private void ValidateProductTypeAndTemperature()
     {
         if (!productTypeMap.ContainsKey(productType))
@@ -46,8 +43,6 @@ public class ColdContainer : ContainerGeneral, IHazardNotifier
             throw new InvalidOperationException($"Temperatura kontenera {containerTemp}°C jest za wysoka dla produktu {productType}, optymalna temperatura to {productTypeMap[productType]}°C.");
         }
     }
-
-    
     public void NotifyHazard(string message)
     {
         Console.WriteLine($"Hazard notification for {serialNumber}: {message}");

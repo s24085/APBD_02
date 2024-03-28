@@ -2,26 +2,15 @@ using System.ComponentModel.Design.Serialization;
 
 namespace Z_02;
 
-public class ContainerShip
+public class ContainerShip(double maxSpeed, int maxLoad, double maxTotalWeight, string name)
 {
-
-
-    public double maxSpeed;
-    public int maxLoad;
-    public double maxTotalWeight;
-    public string name;
+    public double maxSpeed = maxSpeed;
+    public int maxLoad = maxLoad;
+    public double maxTotalWeight = maxTotalWeight;
+    public string name = name;
     public double currentLoad { get; set; } = 0;
     public List<ContainerGeneral> containers { get; private set; } = new List<ContainerGeneral>();
 
-
-    public ContainerShip(double maxSpeed, int maxLoad, double maxTotalWeight, string name)
-    {
-        this.maxSpeed = maxSpeed;
-        this.maxLoad = maxLoad;
-        this.maxTotalWeight = maxTotalWeight;
-        this.name = name;
-
-    }
 
     public void AddContainerOntoShip(ContainerGeneral container)
     {
@@ -39,34 +28,6 @@ public class ContainerShip
 
         containers.Add(container);
     }
-
-    public void RemoveContainer(string serialNumber)
-    {
-        var container = containers.FirstOrDefault(c => c.serialNumber.ToString() == serialNumber);
-        if (container != null)
-        {
-            containers.Remove(container);
-        }
-        else
-        {
-            throw new InvalidOperationException($"Container with serial number {serialNumber} not found.");
-        }
-    }
-
-    public void LoadCargoToContainer(string serialNumber, double weight)
-    {
-        var container = containers.FirstOrDefault(c => c.serialNumber.ToString() == serialNumber);
-        if (container != null)
-        {
-            container.LoadContainer(weight);
-        }
-        else
-        {
-            throw new InvalidOperationException($"Container with serial number {serialNumber} not found.");
-        }
-    }
-
-
     public static void ReplaceContainer()
     {
        
@@ -76,8 +37,7 @@ public class ContainerShip
             Console.WriteLine($"{i + 1}. {ShipManagement.ships[i].name}");
         }
 
-        int shipChoice;
-        if (!int.TryParse(Console.ReadLine(), out shipChoice) || shipChoice < 1 || shipChoice > ShipManagement.ships.Count)
+        if (!int.TryParse(Console.ReadLine(), out var shipChoice) || shipChoice < 1 || shipChoice > ShipManagement.ships.Count)
         {
             Console.WriteLine("Nieprawidłowy wybór statku.");
             return;
@@ -93,8 +53,7 @@ public class ContainerShip
                 $"{i + 1}. {selectedShip.containers[i].serialNumber} ({selectedShip.containers[i].GetType().Name})");
         }
 
-        int containerChoice;
-        if (!int.TryParse(Console.ReadLine(), out containerChoice) || containerChoice < 1 ||
+        if (!int.TryParse(Console.ReadLine(), out var containerChoice) || containerChoice < 1 ||
             containerChoice > selectedShip.containers.Count)
         {
             Console.WriteLine("Nieprawidłowy wybór kontenera.");
@@ -112,8 +71,7 @@ public class ContainerShip
                 $"{i + 1}. {availableContainers[i].serialNumber} ({availableContainers[i].GetType().Name})");
         }
 
-        int newContainerChoice;
-        if (!int.TryParse(Console.ReadLine(), out newContainerChoice) || newContainerChoice < 1 ||
+        if (!int.TryParse(Console.ReadLine(), out var newContainerChoice) || newContainerChoice < 1 ||
             newContainerChoice > availableContainers.Count)
         {
             Console.WriteLine("Nieprawidłowy wybór nowego kontenera.");
@@ -147,7 +105,7 @@ public class ContainerShip
             Console.WriteLine($"{i + 1}. {ShipManagement.ships[i].name}");
         }
 
-        int sourceShipIndex = int.Parse(Console.ReadLine()) - 1;
+        int sourceShipIndex = int.Parse(Console.ReadLine() ?? string.Empty) - 1;
         var sourceShip = ShipManagement.ships[sourceShipIndex];
 
      
@@ -157,7 +115,7 @@ public class ContainerShip
             Console.WriteLine($"{i + 1}. {sourceShip.containers[i].serialNumber}");
         }
 
-        int containerChoice = int.Parse(Console.ReadLine()) - 1;
+        int containerChoice = int.Parse(Console.ReadLine() ?? string.Empty) - 1;
         var containerToTransfer = sourceShip.containers[containerChoice];
 
         
@@ -170,7 +128,7 @@ public class ContainerShip
             }
         }
 
-        int targetShipIndex = int.Parse(Console.ReadLine()) - 1;
+        int targetShipIndex = int.Parse(Console.ReadLine() ?? string.Empty) - 1;
         var targetShip = ShipManagement.ships[targetShipIndex];
 
  
@@ -192,17 +150,16 @@ public class ContainerShip
 
 
 
-public static void DisplayShipInfo()
-{
-    var ships = ShipManagement.ships;
-            // Wyświetlanie listy dostępnych statków
+        public static void DisplayShipInfo()
+        {
+            var ships = ShipManagement.ships;
+            
             Console.WriteLine("Dostępne statki:");
             for (int i = 0; i < ships.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {ships[i].name}");
             }
-
-            // Prośba o wybór statku
+            
             Console.WriteLine("Wybierz numer statku, aby zobaczyć szczegółowe informacje:");
             int shipIndex = int.Parse(Console.ReadLine()) - 1;
 
@@ -231,9 +188,7 @@ public static void DisplayShipInfo()
                 Console.WriteLine("Na statku nie ma obecnie załadowanych kontenerów.");
             }
         }
-
     
-
 public override string ToString()
 {
     return $"Container Ship: Max Speed = {maxSpeed} knots, Max Containers = {containers.Count()}, Max Weight = {maxTotalWeight} tons, Currently Loaded Containers = {containers.Count}";

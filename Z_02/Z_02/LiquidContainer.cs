@@ -3,15 +3,18 @@ using System.Linq.Expressions;
 
 namespace Z_02;
 
-public class LiquidContainer : ContainerGeneral, IHazardNotifier
+public class LiquidContainer(
+    double weight,
+    double height,
+    double netWeight,
+    double depth,
+    double maxCapacity,
+    bool isDangerous)
+    : ContainerGeneral(weight, height, netWeight, depth, SerialNumber.GenerateSerialNumber("L"), maxCapacity),
+        IHazardNotifier
 {
-    public bool isDangerous { get; private set; }
-    public LiquidContainer(double weight, double height, double netWeight, double depth, double maxCapacity, bool isDangerous) 
-        : base(weight, height, netWeight, depth, SerialNumber.GenerateSerialNumber("L"), maxCapacity)
-    {
-        this.isDangerous = isDangerous;
-    }
-    
+    public bool isDangerous { get; private set; } = isDangerous;
+
     public void NotifyHazard(string message)
     {
         Console.WriteLine($"Hazard notification for {serialNumber}: {message}");

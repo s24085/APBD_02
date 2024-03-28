@@ -145,29 +145,8 @@ public class ContainerManagement
         }
 
     }
-
-
     public List<ContainerGeneral> FindContainersByType(Type containerType)
 {
     return ContainerGeneral.allContainers.Where(c => c.GetType() == containerType).ToList();
 }
-    public static class ContainerLoader
-    {
-        public static List<ContainerGeneral> containersToLoad = new List<ContainerGeneral>();
-
-        public static void AddContainerToLoadList(string serialNumber)
-        {
-            var container = ContainerGeneral.allContainers.FirstOrDefault(c => c.serialNumber == serialNumber);
-            if (container != null)
-            {
-                containersToLoad.Add(container);
-                Console.WriteLine($"Kontener {serialNumber} dodany do listy załadunku.");
-            }
-            else
-            {
-                Console.WriteLine("Nie znaleziono kontenera o podanym numerze seryjnym.");
-            }
-        }
-    }
-
 }

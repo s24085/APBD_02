@@ -36,7 +36,7 @@ namespace Z_02
     
 
 
-    public static ColdContainer CreateColdContainer()
+    private static ColdContainer CreateColdContainer()
         {
             var productNames = new List<string>
             {
@@ -70,7 +70,6 @@ namespace Z_02
             int choice = int.Parse(Console.ReadLine());
             string selectedProductName;
             double temperature=0;
-            // Sprawdzamy, czy wybór mieści się w zakresie listy
             if (choice == 11)
             {
                 Console.Write("Podaj nazwę produktu: ");
@@ -81,8 +80,6 @@ namespace Z_02
             if (choice >= 1 && choice <= productNames.Count-1)
             {
                 selectedProductName = productNames[choice - 1];
-
-                // Sprawdzamy, czy słownik zawiera wybrany produkt
                 if (ColdContainer.productTypeMap.TryGetValue(selectedProductName, out temperature))
                 {
                     Console.WriteLine($"Wybrano: {selectedProductName}, Temperatura: {temperature}°C");
@@ -102,22 +99,22 @@ namespace Z_02
             return new ColdContainer(weight, height, netWeight, depth, maxCapacity, productNames[choice - 1], temperature);
         }
 
-        public static LiquidContainer CreateLiquidContainer()
+        private static LiquidContainer CreateLiquidContainer()
         {
             Console.WriteLine("Tworzenie kontenera na płyny:");
             Console.Write("Czy ładunek jest niebezpieczny? (tak/nie): ");
-            bool isDangerous = Console.ReadLine().Trim().ToLower() == "tak";
+            bool isDangerous = Console.ReadLine()?.Trim().ToLower() == "tak";
             double weight = 1200, height = 250, netWeight = 150, depth = 250;
             double maxCapacity = 6000;
 
             return new LiquidContainer(weight, height, netWeight, depth, maxCapacity,isDangerous);
         }
 
-        public static GasContainer CreateGasContainer()
+        private static GasContainer CreateGasContainer()
         {
             Console.WriteLine("Tworzenie kontenera na gaz:");
             Console.Write("Podaj ciśnienie gazu: ");
-            int pressure = int.Parse(Console.ReadLine());
+            int pressure = int.Parse(Console.ReadLine() ?? string.Empty);
             double weight = 950, height = 180, netWeight = 90, depth = 180;
             double maxCapacity = 4500;
 

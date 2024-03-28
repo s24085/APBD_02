@@ -2,22 +2,24 @@ namespace Z_02;
 
 public class ShipManagement
 {
-    public static List<ContainerShip> ships { get; private set; } = new List<ContainerShip>();
-    public static List<ContainerGeneral> containersOnShip { get; private set; } = new List<ContainerGeneral>();
-
-
+    public static List<ContainerShip> ships { get; private set; } = [];
+    public static List<ContainerGeneral> containersOnShip { get; private set; } = [];
+    
     public static void AddShip()
     {
         Console.WriteLine("Podaj maksymalną prędkość statku (w węzłach):");
-        double maxSpeed = double.Parse(Console.ReadLine());
+        var maxSpeed = double.Parse(Console.ReadLine() ?? string.Empty);
         Console.WriteLine("Podaj maksymalną liczbę kontenerów:");
-        int maxLoad = int.Parse(Console.ReadLine());
+        var maxLoad = int.Parse(Console.ReadLine() ?? string.Empty);
         Console.WriteLine("Podaj maksymalną wagę wszystkich kontenerów (w tonach):");
-        double maxTotalWeight = double.Parse(Console.ReadLine());
+        var maxTotalWeight = double.Parse(Console.ReadLine() ?? string.Empty);
         Console.WriteLine("Podaj nazwe statku:");
-        string name = Console.ReadLine();
-        ContainerShip containerShip = new ContainerShip(maxSpeed, maxLoad, maxTotalWeight,name);
-        ships.Add(containerShip);
+        var name = Console.ReadLine();
+        if (name != null)
+        {
+            var containerShip = new ContainerShip(maxSpeed, maxLoad, maxTotalWeight,name);
+            ships.Add(containerShip);
+        }
         Console.WriteLine("Dodano kontenerowiec.");
     }
 
@@ -25,7 +27,7 @@ public class ShipManagement
     public static void LoadContainerOntoShip()
     {
         Console.WriteLine("Podaj numer seryjny kontenera do załadowania:");
-        string serialNumber = Console.ReadLine();
+        var serialNumber = Console.ReadLine();
 
        
         var containerToLoad = ContainerGeneral.allContainers.FirstOrDefault(c => c.serialNumber.Equals(serialNumber, StringComparison.OrdinalIgnoreCase));
@@ -42,7 +44,7 @@ public class ShipManagement
             Console.WriteLine($"{i + 1}. Statek {ships[i].name}, Maksymalna liczba kontenerów: {ships[i].maxLoad}, Obecnie załadowane kontenery: {ships[i].containers.Count}, Obecne obciążenie: {ships[i].currentLoad} ton");
         }
         
-        int shipIndex = int.Parse(Console.ReadLine()) - 1;
+        var shipIndex = int.Parse(Console.ReadLine() ?? string.Empty) - 1;
         if (shipIndex < 0 || shipIndex >= ships.Count)
         {
             Console.WriteLine("Wybrano nieprawidłowy numer statku.");
@@ -63,8 +65,6 @@ public class ShipManagement
 
         Console.WriteLine($"Kontener {serialNumber} został pomyślnie załadowany na statek {ship.name}.");
     }
-
-
 public static void RemoveContainerFromShip()
 {
     
@@ -74,7 +74,7 @@ public static void RemoveContainerFromShip()
         Console.WriteLine($"{i + 1}. Statek {ships[i].name}, Obecnie załadowane kontenery: {ships[i].containers.Count}, Obecne obciążenie: {ships[i].currentLoad} ton");
     }
 
-    int shipIndex = int.Parse(Console.ReadLine()) - 1;
+    var shipIndex = int.Parse(Console.ReadLine() ?? string.Empty) - 1;
     if (shipIndex < 0 || shipIndex >= ships.Count)
     {
         Console.WriteLine("Wybrano nieprawidłowy numer statku.");
@@ -90,7 +90,7 @@ public static void RemoveContainerFromShip()
         Console.WriteLine($"Numer seryjny: {container.serialNumber}, Typ: {container.GetType().Name}, Waga: {container.weight}");
     }
 
-    string serialNumber = Console.ReadLine();
+    var serialNumber = Console.ReadLine();
 
     var containerToRemove = ship.containers.FirstOrDefault(c => c.serialNumber.Equals(serialNumber, StringComparison.OrdinalIgnoreCase));
     if (containerToRemove == null)
@@ -99,11 +99,9 @@ public static void RemoveContainerFromShip()
         return;
     }
     ship.containers.Remove(containerToRemove);
-    ship.currentLoad -= containerToRemove.weight; // Aktualizacja obciążenia
+    ship.currentLoad -= containerToRemove.weight; 
     Console.WriteLine($"Kontener {serialNumber} został usunięty ze statku {ship.name}.");
 }
-
-
 
     public static void DisplayShipsAndContainers()
     {
@@ -132,7 +130,7 @@ public static void RemoveContainerFromShip()
                               $"Obecnie załadowane kontenery: {ships[i].containers.Count}, Obecne obciążenie: {ships[i].currentLoad} ton");
         }
 
-        int shipIndex = int.Parse(Console.ReadLine()) - 1;
+        var shipIndex = int.Parse(Console.ReadLine() ?? string.Empty) - 1;
         if (shipIndex < 0 || shipIndex >= ships.Count)
         {
             Console.WriteLine("Wybrano nieprawidłowy numer statku.");
@@ -142,12 +140,13 @@ public static void RemoveContainerFromShip()
         var ship = ships[shipIndex];
         LoadContainersOntoSelectedShip(ship);
     }
-    public static void LoadContainersOntoSelectedShip(ContainerShip ship)
+
+    private static void LoadContainersOntoSelectedShip(ContainerShip ship)
     {
-        List<ContainerGeneral> selectedContainers = new List<ContainerGeneral>();
+        List<ContainerGeneral> selectedContainers = [];
         Console.WriteLine("Dostępne kontenery do załadunku (maksymalnie 10):");
 
-        int count = 0;
+        var count = 0;
         foreach (var container in ContainerGeneral.allContainers.Where(c => !ship.containers.Contains(c)))
         {
             Console.WriteLine($"{++count}. Kontener typu {container.GetType().Name}, Numer seryjny: {container.serialNumber}");
@@ -156,11 +155,10 @@ public static void RemoveContainerFromShip()
         while (selectedContainers.Count < 10)
         {
             Console.WriteLine("Wybierz kontener do dodania do listy załadunku (lub wpisz 'koniec', aby zakończyć):");
-            string input = Console.ReadLine();
-            if (input.ToLower() == "koniec") break;
+            var input = Console.ReadLine();
+            if (input?.ToLower() == "koniec") break;
 
-            int containerIndex;
-            if (int.TryParse(input, out containerIndex) && containerIndex <= count && containerIndex > 0)
+            if (int.TryParse(input, out var containerIndex) && containerIndex <= count && containerIndex > 0)
             {
                 selectedContainers.Add(ContainerGeneral.allContainers[containerIndex - 1]);
                 Console.WriteLine($"Dodano kontener {ContainerGeneral.allContainers[containerIndex - 1].serialNumber} do listy.");
@@ -173,9 +171,9 @@ public static void RemoveContainerFromShip()
 
         CheckAndLoadContainers(ship, selectedContainers);
     }
-    public static void CheckAndLoadContainers(ContainerShip ship, List<ContainerGeneral> selectedContainers)
+    private static void CheckAndLoadContainers(ContainerShip ship, List<ContainerGeneral> selectedContainers)
     {
-        double totalWeight = selectedContainers.Sum(c => c.weight);
+        var totalWeight = selectedContainers.Sum(c => c.weight);
         if (ship.containers.Count + selectedContainers.Count > ship.maxLoad || ship.currentLoad + totalWeight > ship.maxTotalWeight)
         {
             Console.WriteLine("Nie można załadować wybranych kontenerów na statek: przekroczono limit masy lub liczby kontenerów.");
@@ -187,7 +185,6 @@ public static void RemoveContainerFromShip()
             ship.containers.Add(container);
             ship.currentLoad += container.weight;
         }
-
         Console.WriteLine("Wybrane kontenery zostały pomyślnie załadowane na statek.");
     }
 }
