@@ -96,14 +96,6 @@ namespace Z_02
             {
                 Console.WriteLine("Nieprawidłowy wybór.");
             }
-
-            // foreach (KeyValuePair<string, double> item in ColdContainer.productTypeMap)
-            // {
-            //     Console.WriteLine($"Produkt: {item.Key}, Temperatura: {item.Value}°C");
-            // }
-           
-
-            // Przykładowe wartości dla innych parametrów, które normalnie też powinny być pobierane od użytkownika
             double weight = 33000, height = 300, netWeight = 2200, depth = 2000;
             double maxCapacity = 5000;
 
@@ -115,8 +107,6 @@ namespace Z_02
             Console.WriteLine("Tworzenie kontenera na płyny:");
             Console.Write("Czy ładunek jest niebezpieczny? (tak/nie): ");
             bool isDangerous = Console.ReadLine().Trim().ToLower() == "tak";
-
-            // Przykładowe wartości dla innych parametrów
             double weight = 1200, height = 250, netWeight = 150, depth = 250;
             double maxCapacity = 6000;
 
@@ -128,8 +118,6 @@ namespace Z_02
             Console.WriteLine("Tworzenie kontenera na gaz:");
             Console.Write("Podaj ciśnienie gazu: ");
             int pressure = int.Parse(Console.ReadLine());
-
-            // Przykładowe wartości dla innych parametrów
             double weight = 950, height = 180, netWeight = 90, depth = 180;
             double maxCapacity = 4500;
 

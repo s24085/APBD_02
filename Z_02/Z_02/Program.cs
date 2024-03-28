@@ -72,21 +72,36 @@ class Program
                     ContainerManagement.LoadCargoToSelectedContainer();
                     break;
                 case "4":
-                    ShipManagement.FindContainerBySerialNumber(null);
+                    ContainerManagement.UnloadCargoFromSelectedContainer();
                     break;
                 case "5":
-                    ShipManagement.LoadContainerOntoShip();
+                    ContainerManagement.ContainerInfoBySerialNumber();
                     break;
                 case "6":
-                    ShipManagement.DisplayShipsAndContainers();
+                    ShipManagement.LoadContainerOntoShip();
                     break;
                 case "7":
-                    ContainerFactory.CreateLiquidContainer();
+                    ShipManagement.LoadContainerListOntoShip();
                     break;
                 case "8":
-                    ContainerFactory.CreateGasContainer();
+                    ShipManagement.RemoveContainerFromShip();
                     break;
                 case "9":
+                    ContainerShip.ReplaceContainer();
+                    break;
+                case "10":
+                    ContainerShip.TransferContainerBetweenShips();
+                    break;
+                case "11":
+                    ShipManagement.DisplayShipsAndContainers();
+                    break;
+                case "12":
+                    ContainerShip.DisplayShipInfo();
+                    break;
+                case "13":
+                    ContainerShip.ReplaceContainer();
+                    break;
+                case "14":
                     isRunning = false;
                     break;
                 default:

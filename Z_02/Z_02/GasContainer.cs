@@ -9,20 +9,7 @@ public class GasContainer :ContainerGeneral, IHazardNotifier
         this.pressure = pressure;
     }
 
-    // public  void LoadContainer(double weight)
-    // {
-    //     if (weight > maxCapacity)
-    //     {
-    //         throw new Exception("OverfillException");
-    //     }
-    //
-    //     this.weight = weight;
-    // }
-    //
-    // public  void ClearContainer()
-    // {
-    //    weight= weight*0.05;
-    // }
+    
     public void NotifyHazard(string msg)
     {
         Console.WriteLine($"Hazard notification for {serialNumber}: {msg}");
