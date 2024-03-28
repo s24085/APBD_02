@@ -2,8 +2,8 @@ namespace Z_02;
 
 public class ShipManagement
 {
-    public static List<ShipContainer> ships { get; private set; } = new List<ShipContainer>();
-    public static List<ContainerGeneral> containers { get; private set; } = new List<ContainerGeneral>();
+    public static List<ContainerShip> ships { get; private set; } = new List<ContainerShip>();
+    public static List<ContainerGeneral> containersOnShip { get; private set; } = new List<ContainerGeneral>();
 
 
     public static void AddShip()
@@ -14,9 +14,10 @@ public class ShipManagement
         int maxLoad = int.Parse(Console.ReadLine());
         Console.WriteLine("Podaj maksymalną wagę wszystkich kontenerów (w tonach):");
         double maxTotalWeight = double.Parse(Console.ReadLine());
-
-        ShipContainer ship = new ShipContainer(maxSpeed, maxLoad, maxTotalWeight);
-        ships.Add(ship);
+        Console.WriteLine("Podaj nazwe statku:");
+        string name = Console.ReadLine();
+        ContainerShip containerShip = new ContainerShip(maxSpeed, maxLoad, maxTotalWeight,name);
+        ships.Add(containerShip);
         Console.WriteLine("Dodano kontenerowiec.");
     }
 
@@ -25,9 +26,9 @@ public static void LoadContainerOntoShip()
     {
        
         Console.WriteLine("Wybierz kontener do załadowania (podaj numer):");
-        for (int i = 0; i < containers.Count; i++)
+        for (int i = 0; i < containersOnShip.Count; i++)
         {
-            Console.WriteLine($"{i + 1}. Kontener typu {ContainerGeneral.containers[i].GetType().Name}, Numer seryjny: {ContainerGeneral.containers[i].serialNumber}");
+            Console.WriteLine($"{i + 1}. Kontener typu {ContainerGeneral.allContainers[i].GetType().Name}, Numer seryjny: {ContainerGeneral.allContainers[i].serialNumber}");
         }
 
         int containerIndex = int.Parse(Console.ReadLine()) - 1;
@@ -42,7 +43,7 @@ public static void LoadContainerOntoShip()
 
         try
         {
-            ships[shipIndex].AddContainer(ContainerGeneral.containers[containerIndex]);
+            ships[shipIndex].AddContainerOntoShip(ContainerGeneral.allContainers[containerIndex]);
             Console.WriteLine("Kontener został pomyślnie załadowany na statek.");
         }
         catch (Exception e)
@@ -65,7 +66,7 @@ public static void LoadContainerOntoShip()
         }
 
         Console.WriteLine("\nDostępne kontenery:");
-        foreach (var container in ContainerGeneral.containers.Where(c => !ships.Any(s => s.containers.Contains(c))))
+        foreach (var container in ContainerGeneral.allContainers.Where(c => !ships.Any(s => s.containers.Contains(c))))
         {
             Console.WriteLine($"Kontener: Typ: {container.GetType().Name}, Numer seryjny: {container.serialNumber}, Waga: {container.weight}");
         }
@@ -73,11 +74,11 @@ public static void LoadContainerOntoShip()
     
     public static ContainerGeneral FindContainerBySerialNumber(string serialNumber)
     {
-        return containers.FirstOrDefault(c => c.serialNumber == serialNumber);
+        return containersOnShip.FirstOrDefault(c => c.serialNumber == serialNumber);
     }
 
     public List<ContainerGeneral> FindContainersByType(Type containerType)
     {
-        return containers.Where(c => c.GetType() == containerType).ToList();
+        return containersOnShip.Where(c => c.GetType() == containerType).ToList();
     }
 }

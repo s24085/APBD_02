@@ -2,23 +2,26 @@ using System.ComponentModel.Design.Serialization;
 
 namespace Z_02;
 
-public class ShipContainer
+public class ContainerShip
 {
    
    
     public double maxSpeed;
     public int maxLoad;
     public double maxTotalWeight;
+    public string name;
     public List<ContainerGeneral> containers { get; private set; } = new List<ContainerGeneral>();
+    
 
-    public ShipContainer(double maxSpeed, int maxLoad, double maxTotalWeight)
+    public ContainerShip(double maxSpeed, int maxLoad, double maxTotalWeight,string name)
     {
         this.maxSpeed = maxSpeed;
         this.maxLoad = maxLoad;
         this.maxTotalWeight = maxTotalWeight;
+        this.name = name;
     }
     
-    public void AddContainer(ContainerGeneral container)
+    public void AddContainerOntoShip(ContainerGeneral container)
     {
        
     if (containers.Count >= maxLoad)
@@ -47,8 +50,7 @@ public void RemoveContainer(string serialNumber)
         throw new InvalidOperationException($"Container with serial number {serialNumber} not found.");
     }
 }
-
-public void LoadCargoToContainer(string serialNumber, double weight)
+public  void LoadCargoToContainer(string serialNumber, double weight)
 {
     var container = containers.FirstOrDefault(c => c.serialNumber.ToString() == serialNumber);
     if (container != null)
@@ -60,6 +62,7 @@ public void LoadCargoToContainer(string serialNumber, double weight)
         throw new InvalidOperationException($"Container with serial number {serialNumber} not found.");
     }
 }
+
 
 public void UnloadCargoFromContainer(string serialNumber)
 {
@@ -87,10 +90,10 @@ public void UnloadCargoFromContainer(string serialNumber)
     }
 
 
-    static void TransferContainer(ShipContainer fromShip, ShipContainer toShip, ContainerGeneral container)
+    static void TransferContainer(ContainerShip fromShip, ContainerShip toShip, ContainerGeneral container)
     {
         fromShip.RemoveContainer(container.serialNumber);
-        toShip.AddContainer(container);
+        toShip.AddContainerOntoShip(container);
     }
 
 
